@@ -119,9 +119,7 @@ void unionSLL(SLL *recipient, SLL *donor) {
 }
 
 void *getSLL (SLL *items, int index) {
-
     assert(index >= 0 && index < items->size);
-
     if(index == 0) {
         if(debugSLL) printf("_SLL - getting index 0\n");
         return getNODEvalue(items->head);
@@ -133,11 +131,9 @@ void *getSLL (SLL *items, int index) {
         //returns the value of the next node from the node before the index
         return getNODEvalue(getNODEnext(getNodeBefore(items, index)));
     }
-
 }
 
 void *setSLL (SLL *items, int index, void *value) {
-
     assert(index >= 0 && index <= items->size);
     void *data = 0;
     if(index == items->size) {
@@ -153,7 +149,6 @@ void *setSLL (SLL *items, int index, void *value) {
         setNODEvalue(n, value);
     }
     return data;
-
 }
 
 int sizeSLL (SLL *items) {

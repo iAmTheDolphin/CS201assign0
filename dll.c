@@ -124,6 +124,24 @@ void *getDLL(DLL *items,int index) {
     }
 }
 
+void *setDLL(DLL *items,int index,void *value) {
+    assert(index >= 0 && index <= items->size);
+    void *data = 0;
+    if (index == items->size) {
+        insertDLL(items, index, value);
+    }
+    else if(index == 0) {
+        data = getNODEvalue(items->head);
+        setNODEvalue(items->head, value);
+    }
+    else {
+        NODE *n = getNODEnext(getNodeBefore(items, index));
+        data = getNODEvalue(n);
+        setNODEvalue(n, value);
+    }
+    return data;
+}
+
 void displayDLL(DLL *items,FILE *fp) {
     NODE *n = items->head;
     if(items->size == 0) {
