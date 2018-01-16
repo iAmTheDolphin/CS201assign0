@@ -35,7 +35,6 @@ static NODE *getNodeBefore (DLL *items, int index) {
     return n;
 }
 
-
 void insertDLL(DLL *items, int index, void *value) {
     if(debugDLL) printf("_DLL - inserting into DLL\n");
     assert(index >= 0 && index <= items->size);
@@ -68,9 +67,36 @@ void *removeDLL(DLL *items,int index) {
     assert(items->size > 0 && index >= 0 && index < items->size);
 
     NODE *n = getNodeBefore(items, index + 1);
+    NODE *last = getNODElast(n);
+    NODE *next = getNODEnext(n);
+    void *value = getNODEvalue(n);
+
+    if(items->size == 1) {
+        free(n);
+        items->size--;
+    }
+    else if (index == 0) {
+        setNODElast(next, 0);
+        items->head = next;
+        free(n);
+        items->size--;
+    }
+    else if(index == items->size -1) {
+        setNODEnext(last, 0);
+        items->tail = last;
+        free(n);
+        items->size--;
+    }
+    else {
+        setNODEnext(last, next);
+        setNODElast(next, last);
+        free(n);
+    }
+
+    return value;
 }
 
-extern void displayDLL(DLL *items,FILE *fp) {
+void displayDLL(DLL *items,FILE *fp) {
     //FIXME
 
     NODE *n = items->head;

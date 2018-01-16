@@ -55,7 +55,7 @@ void setNODElast(NODE *n, NODE *p) { n->last = p; }
 
 /* visualizers */
 
-void displayNODE(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
+        void displayNODE(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
     fprintf(fp, "[[");
     d(fp, n->value);
     fprintf(fp, "]]");

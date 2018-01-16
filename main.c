@@ -23,6 +23,8 @@ int main()
     insertDLL(items, 0, newINTEGER(3));
     insertDLL(items, 1, newINTEGER(4));
     showItems(items);
+    removeDLL(items, 0);
+    showItems(items);
 
     /*
     SLL *items = newSLL(displayINTEGER,freeINTEGER);
