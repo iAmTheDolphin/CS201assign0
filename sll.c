@@ -162,7 +162,6 @@ void displaySLL (SLL *items, FILE *fp) {
     NODE *n = items->head;
     for (int x = 0; x < items->size; x ++){
         if (x > 0) printf(",");
-        //printf(getNODEvalue(n));
         items->display(getNODEvalue(n), fp);
         n = getNODEnext(n);
     }

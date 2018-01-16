@@ -8,15 +8,23 @@
 #include "dll.h"
 #include "integer.h"
 
-static void showItems(SLL *items)
+static void showItems(DLL *items)
 {
     printf("The items are ");
-    displaySLL(items, stdout);
+    displayDLL(items, stdout);
     printf(".\n");
 }
 
 int main()
 {
+
+    DLL *items = newDLL(displayINTEGER, freeINTEGER);
+    showItems(items);
+    insertDLL(items, 0, newINTEGER(3));
+    insertDLL(items, 1, newINTEGER(4));
+    showItems(items);
+
+    /*
     SLL *items = newSLL(displayINTEGER,freeINTEGER);
     showItems(items);
     insertSLL(items,0,newINTEGER(3));                   //insert at front
@@ -33,5 +41,7 @@ int main()
     printf("The first item is %d.\n",x);
     printf("Freeing the list.\n");
     freeSLL(items);
+     */
     return 0;
+
 }
