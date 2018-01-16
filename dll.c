@@ -96,23 +96,6 @@ void *removeDLL(DLL *items,int index) {
     return value;
 }
 
-void displayDLL(DLL *items,FILE *fp) {
-    //FIXME
-
-    NODE *n = items->head;
-    if(items->size == 0) {
-        printf("/pick>");
-    }
-    else {
-        for (int x = 0; x < items->size; x ++) {
-            if (x > 0) printf(",");
-            items->display(getNODEvalue(n), fp);
-            n = getNODEnext(n);
-        }
-    }
-
-}
-
 void unionDLL(DLL *recipient,DLL *donor) {
 
     if(recipient->size == 0) {
@@ -126,4 +109,31 @@ void unionDLL(DLL *recipient,DLL *donor) {
     }
     donor->head = donor->tail = 0;
     donor->size = 0;
+}
+
+void *getDLL(DLL *items,int index) {
+    assert(index >= 0 && index < items->size);
+    if(index == 0) {
+        return getNODEvalue(items->head);
+    }
+    else if(index == items->size - 1) {
+        return getNODEvalue(items->tail);
+    }
+    else {
+        return getNODEvalue(getNODEnext(getNodeBefore(items, index)));
+    }
+}
+
+void displayDLL(DLL *items,FILE *fp) {
+    NODE *n = items->head;
+    if(items->size == 0) {
+        printf("/pick>");
+    }
+    else {
+        for (int x = 0; x < items->size; x ++) {
+            if (x > 0) printf(",");
+            items->display(getNODEvalue(n), fp);
+            n = getNODEnext(n);
+        }
+    }
 }
