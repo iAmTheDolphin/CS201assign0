@@ -112,3 +112,18 @@ void displayDLL(DLL *items,FILE *fp) {
     }
 
 }
+
+void unionDLL(DLL *recipient,DLL *donor) {
+
+    if(recipient->size == 0) {
+        recipient->head = donor->head;
+        recipient->tail = donor->tail;
+    }
+    else {
+        setNODEnext(recipient->tail, donor->head);
+        if(donor->head != 0) setNODElast(donor->head, recipient->tail);
+        recipient->tail = donor->tail;
+    }
+    donor->head = donor->tail = 0;
+    donor->size = 0;
+}

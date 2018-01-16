@@ -104,13 +104,16 @@ void *removeSLL(SLL *items, int index) {
 void unionSLL(SLL *recipient, SLL *donor) {
     if(debugSLL) printf("_SLL - starting a union\n");
 
-    recipient->tail = donor->tail;
     if(recipient->size == 0) {
         if(debugSLL) printf("_SLL - - recipient size is 0 linking head to head\n");
         recipient->head = donor->head;
+        recipient->tail = donor->tail;
+    }
+    else {
+        setNODEnext(recipient->tail, donor->head);
+        recipient->tail = donor->tail;
     }
     recipient->size += donor->size;
-
     donor->head = donor->tail = 0;
     donor->size = 0;
 }

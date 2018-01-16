@@ -25,6 +25,10 @@ int main()
     showItems(items);
     removeDLL(items, 0);
     showItems(items);
+    removeDLL(items, 0);
+    showItems(items);
+    insertDLL(items, 0, newINTEGER(3));
+    showItems(items);
 
     /*
     SLL *items = newSLL(displayINTEGER,freeINTEGER);
