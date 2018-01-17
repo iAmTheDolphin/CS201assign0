@@ -31,6 +31,7 @@ int main()
     insertDLL(items, 0, newINTEGER(3));
     showItems(items);
     freeDLL(items);
+    freeDLL(items2);
 
     /*
     SLL *items = newSLL(displayINTEGER,freeINTEGER);

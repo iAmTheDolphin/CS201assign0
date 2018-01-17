@@ -170,7 +170,6 @@ void displayDLL(DLL *items,FILE *fp) {
 void displayDLLdebug(DLL *items, FILE *fp) {
     debugDLL = 1;
     displayDLL(items, fp);
-    debugDLL = 0;
 }
 
 void freeDLL (DLL *items) {
