@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "node.h" //TODO fix this and move it wherever it needs to be
+#include "node.h"
 
 typedef struct sll SLL;
 

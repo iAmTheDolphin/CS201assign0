@@ -19,16 +19,18 @@ int main()
 {
 
     DLL *items = newDLL(displayINTEGER, freeINTEGER);
+    DLL *items2 = newDLL(displayINTEGER, freeINTEGER);
     showItems(items);
+    unionDLL(items, items2);
     insertDLL(items, 0, newINTEGER(3));
     insertDLL(items, 1, newINTEGER(4));
+    unionDLL(items, items2);
     showItems(items);
-    removeDLL(items, 0);
-    showItems(items);
-    removeDLL(items, 0);
+    freeINTEGER(removeDLL(items, 0));
     showItems(items);
     insertDLL(items, 0, newINTEGER(3));
     showItems(items);
+    freeDLL(items);
 
     /*
     SLL *items = newSLL(displayINTEGER,freeINTEGER);

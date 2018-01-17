@@ -182,5 +182,5 @@ void freeDLL (DLL *items) {
         n = next;
         if(n != 0)next = getNODEnext(n);
     }
-    free(items);
+    free((DLL *)items);
 }
