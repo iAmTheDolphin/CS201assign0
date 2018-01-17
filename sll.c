@@ -174,12 +174,12 @@ void displaySLLdebug(SLL *items, FILE *fp){
 
 void freeSLL (SLL *items) {
     NODE *n = items->head;
-    NODE *next = getNODEnext(n);
-    freeNODE(n, items->free);
-    while(next != 0) {
-        n = next;
-        next = getNODEnext(n);
+    NODE *next = 0;
+    if(items->size > 1) next = getNODEnext(n);
+    while (n != 0) {
         freeNODE(n, items->free);
+        n = next;
+        if(n != 0)next = getNODEnext(n);
     }
     free(items);
 }

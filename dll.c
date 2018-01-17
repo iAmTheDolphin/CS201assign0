@@ -158,3 +158,21 @@ void displayDLL(DLL *items,FILE *fp) {
         }
     }
 }
+
+void displayDLLdebug(DLL *items, FILE *fp) {
+    debugDLL = 1;
+    displayDLL(items, fp);
+    debugDLL = 0;
+}
+
+void freeDLL (DLL *items) {
+    NODE *n = items->head;
+    NODE *next = 0;
+    if(items->size > 1) next = getNODEnext(n);
+    while (n != 0) {
+        freeNODE(n, items->free);
+        n = next;
+        if(n != 0)next = getNODEnext(n);
+    }
+    free(items);
+}
