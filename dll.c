@@ -26,7 +26,6 @@ DLL *newDLL(void (*d)(void *, FILE *), void (*f)(void *)) {
     return items;
 }
 
-
 static NODE *getNodeBefore (DLL *items, int index) {
     NODE *n = items->head;
     for(int x = 1; x < index; x++) {
@@ -140,6 +139,10 @@ void *setDLL(DLL *items,int index,void *value) {
         setNODEvalue(n, value);
     }
     return data;
+}
+
+int sizeDLL(DLL *items) {
+    return items->size;
 }
 
 void displayDLL(DLL *items,FILE *fp) {
