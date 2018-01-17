@@ -73,29 +73,35 @@ void *removeDLL(DLL *items,int index) {
     if(items->size == 1) {
         free(n);
         items->size--;
+        if(debugDLL) printf("_DLL - removed item at index 0: remaining items: 0\n");
     }
     else if (index == 0) {
         setNODElast(next, 0);
         items->head = next;
         free(n);
         items->size--;
+        if(debugDLL) printf("_DLL - removed item at index 0: remaining items: %i\n", items->size);
     }
     else if(index == items->size -1) {
         setNODEnext(last, 0);
         items->tail = last;
         free(n);
         items->size--;
+        if(debugDLL) printf("_DLL - removed item at index %i: remaining items: %i\n", index, items->size);
     }
     else {
         setNODEnext(last, next);
         setNODElast(next, last);
         free(n);
+        if(debugDLL) printf("_DLL - removed item at index %i: remaining items: %i\n", index, items->size);
     }
 
     return value;
 }
 
 void unionDLL(DLL *recipient,DLL *donor) {
+
+    if(debugDLL) printf("_DLL - union of recipient size:%i and donor size:%i \n", recipient->size, donor->size);
 
     if(recipient->size == 0) {
         recipient->head = donor->head;
@@ -111,6 +117,7 @@ void unionDLL(DLL *recipient,DLL *donor) {
 }
 
 void *getDLL(DLL *items,int index) {
+    if(debugDLL) printf("_DLL - getting value from index %i\n", index);
     assert(index >= 0 && index < items->size);
     if(index == 0) {
         return getNODEvalue(items->head);
@@ -124,6 +131,7 @@ void *getDLL(DLL *items,int index) {
 }
 
 void *setDLL(DLL *items,int index,void *value) {
+    if(debugDLL) printf("_DLL - setting value in index %i\n", index);
     assert(index >= 0 && index <= items->size);
     void *data = 0;
     if (index == items->size) {
