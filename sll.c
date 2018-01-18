@@ -4,6 +4,78 @@
 
 #include "sll.h"
 
+//region Node
+typedef struct node NODE;
+
+struct node {
+    void *value;
+    NODE *next;
+    NODE *last;
+};
+
+static NODE *newNODE(void *value, NODE *n) {
+    NODE *p = malloc(sizeof(NODE));
+    if (p == 0) {
+        fprintf(stderr, "out of memory\n");
+        exit(1);
+    }
+    p->value = value;
+    p->next = n;
+    return p;
+}
+
+static NODE *newNODEdll(void *v, NODE *n, NODE *l) {
+    NODE *p = malloc(sizeof(NODE));
+    if (p == 0) {
+        fprintf(stderr, "out of memory\n");
+        exit(1);
+    }
+    p->value = v;
+    p->next = n;
+    p->last = l;
+    return p;
+}
+
+/* accessors */
+
+static void *getNODEvalue(NODE *n) { return n->value; }
+
+static NODE *getNODEnext(NODE *n) { return n->next; }
+
+static NODE *getNODElast(NODE *n) { return n->last; }
+
+/* mutators */
+
+static void setNODEvalue(NODE *n, void *v) { n->value = v; }
+
+static void setNODEnext(NODE *n, NODE *p) { n->next = p; }
+
+static void setNODElast(NODE *n, NODE *p) { n->last = p; }
+
+/* visualizers */
+
+static void displayNODE(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
+    fprintf(fp, "[[");
+    d(fp, n->value);
+    fprintf(fp, "]]");
+}
+
+static void displayNODEdebug(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
+    fprintf(fp, "[[");
+    d(fp, n->value);
+    fprintf(fp, "@%p->%p]]", n, n->next);
+}
+
+static void
+freeNODE(NODE *n, void (*release)(void *)) {
+    if (release != 0) release(n->value);
+    free(n);
+}
+
+//endregion
+
+
+
 int debugSLL = 0;
 //if(debugSLL) printf("_SSL - \n");
 

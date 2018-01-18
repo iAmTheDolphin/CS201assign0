@@ -15,4 +15,5 @@ struct stack {
 STACK *newSTACK(void (*d)(void *,FILE *),void (*f)(void *)) {
 
 
+
 }

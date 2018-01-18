@@ -18,6 +18,8 @@ static void showItems(DLL *items)
 int main()
 {
 
+
+/*
     DLL *items = newDLL(displayINTEGER, freeINTEGER);
     DLL *items2 = newDLL(displayINTEGER, freeINTEGER);
     showItems(items);
@@ -33,7 +35,7 @@ int main()
     freeDLL(items);
     freeDLL(items2);
 
-    /*
+
     SLL *items = newSLL(displayINTEGER,freeINTEGER);
     showItems(items);
     insertSLL(items,0,newINTEGER(3));                   //insert at front
