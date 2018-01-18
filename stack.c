@@ -6,7 +6,6 @@
 
 struct stack {
 
-
     void (*display) (void *, FILE *);
     void (*free) (void *);
 
@@ -14,6 +13,7 @@ struct stack {
 
 STACK *newSTACK(void (*d)(void *,FILE *),void (*f)(void *)) {
 
+    STACK *items = malloc(sizeof(STACK));
 
-
+    return 0;
 }

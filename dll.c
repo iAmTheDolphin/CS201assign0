@@ -1,10 +1,7 @@
-//
-// Created by Parker Jones on 1/15/18.
-//
-
 #include "dll.h"
 
-
+//given by Dr. Lusth on the beastie website
+//--------------------------------------------------------
 //region Node
 typedef struct node NODE;
 
@@ -13,17 +10,6 @@ struct node {
     NODE *next;
     NODE *last;
 };
-
-static NODE *newNODE(void *value, NODE *n) {
-    NODE *p = malloc(sizeof(NODE));
-    if (p == 0) {
-        fprintf(stderr, "out of memory\n");
-        exit(1);
-    }
-    p->value = value;
-    p->next = n;
-    return p;
-}
 
 static NODE *newNODEdll(void *v, NODE *n, NODE *l) {
     NODE *p = malloc(sizeof(NODE));
@@ -54,7 +40,7 @@ static void setNODEnext(NODE *n, NODE *p) { n->next = p; }
 static void setNODElast(NODE *n, NODE *p) { n->last = p; }
 
 /* visualizers */
-
+/*
 static void displayNODE(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
     fprintf(fp, "[[");
     d(fp, n->value);
@@ -66,17 +52,21 @@ static void displayNODEdebug(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
     d(fp, n->value);
     fprintf(fp, "@%p->%p]]", n, n->next);
 }
-
+*/
 static void
 freeNODE(NODE *n, void (*release)(void *)) {
     if (release != 0) release(n->value);
     free(n);
 }
-
+//--------------------------------------------------------
 //endregion
 
 
 
+
+//
+// Created by Parker Jones on 1/15/18.
+//
 
 int debugDLL = 0;
 //if(debugDLL) printf("_DLL - \n");
@@ -177,10 +167,12 @@ void unionDLL(DLL *recipient, DLL *donor) {
     if (recipient->size == 0) {
         recipient->head = donor->head;
         recipient->tail = donor->tail;
+        recipient->size += donor->size;
     } else {
         setNODEnext(recipient->tail, donor->head);
         if (donor->head != 0) setNODElast(donor->head, recipient->tail);
         recipient->tail = donor->tail;
+        recipient->size += donor->size;
     }
     donor->head = donor->tail = 0;
     donor->size = 0;
@@ -221,20 +213,23 @@ int sizeDLL(DLL *items) {
 
 void displayDLL(DLL *items, FILE *fp) {
     NODE *n = items->head;
-    if (items->size == 0) {
-        printf("/pick>");
-    } else {
+    printf("{{");
+    if (items->size != 0){
         for (int x = 0; x < items->size; x++) {
             if (x > 0) printf(",");
             items->display(getNODEvalue(n), fp);
             n = getNODEnext(n);
         }
     }
+    printf("}}");
 }
 
 void displayDLLdebug(DLL *items, FILE *fp) {
-    debugDLL = 1;
+    printf("head->");
     displayDLL(items, fp);
+    printf(",tail->{{");
+    if(items->tail != 0)items->display(getNODEvalue(items->tail), fp);
+    printf("}}");
 }
 
 void freeDLL(DLL *items) {

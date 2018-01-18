@@ -4,6 +4,8 @@
 
 #include "sll.h"
 
+//given by Dr. Lusth on the beastie website
+//--------------------------------------------------------
 //region Node
 typedef struct node NODE;
 
@@ -24,25 +26,11 @@ static NODE *newNODE(void *value, NODE *n) {
     return p;
 }
 
-static NODE *newNODEdll(void *v, NODE *n, NODE *l) {
-    NODE *p = malloc(sizeof(NODE));
-    if (p == 0) {
-        fprintf(stderr, "out of memory\n");
-        exit(1);
-    }
-    p->value = v;
-    p->next = n;
-    p->last = l;
-    return p;
-}
-
 /* accessors */
 
 static void *getNODEvalue(NODE *n) { return n->value; }
 
 static NODE *getNODEnext(NODE *n) { return n->next; }
-
-static NODE *getNODElast(NODE *n) { return n->last; }
 
 /* mutators */
 
@@ -50,28 +38,27 @@ static void setNODEvalue(NODE *n, void *v) { n->value = v; }
 
 static void setNODEnext(NODE *n, NODE *p) { n->next = p; }
 
-static void setNODElast(NODE *n, NODE *p) { n->last = p; }
-
 /* visualizers */
-
+/*
 static void displayNODE(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
     fprintf(fp, "[[");
     d(fp, n->value);
     fprintf(fp, "]]");
 }
 
+
 static void displayNODEdebug(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
     fprintf(fp, "[[");
     d(fp, n->value);
     fprintf(fp, "@%p->%p]]", n, n->next);
 }
-
+*/
 static void
 freeNODE(NODE *n, void (*release)(void *)) {
     if (release != 0) release(n->value);
     free(n);
 }
-
+//--------------------------------------------------------
 //endregion
 
 
@@ -239,9 +226,11 @@ void displaySLL (SLL *items, FILE *fp) {
 }
 
 void displaySLLdebug(SLL *items, FILE *fp){
-    debugSLL = 1;
+    printf("head->");
     displaySLL(items, fp);
-    debugSLL = 0;
+    printf(",tail->{");
+    if(items->tail != 0)items->display(getNODEvalue(items->tail), fp);
+    printf("}");
 }
 
 void freeSLL (SLL *items) {

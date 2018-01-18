@@ -5,7 +5,7 @@
 #define __STACK_INCLUDED__
 
 #include <stdio.h>
-#include "sll.h"
+#include "dll.h"
 
 typedef struct stack STACK;
 
@@ -14,8 +14,8 @@ extern void push(STACK *items,void *value);
 extern void *pop(STACK *items);
 extern void *peekSTACK(STACK *items);
 extern int sizeSTACK(STACK *items);
-extern void displaySTACK(SLL *items,FILE *);
-extern void displaySTACKdebug(SLL *items,FILE *);
+extern void displaySTACK(DLL *items,FILE *);
+extern void displaySTACKdebug(DLL *items,FILE *);
 extern void freeSTACK(STACK *items);
 
 #endif
