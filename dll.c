@@ -68,6 +68,12 @@ freeNODE(NODE *n, void (*release)(void *)) {
 // Created by Parker Jones on 1/15/18.
 //
 
+
+
+/* DLL CLASS
+ * written by Parker Jones
+ */
+
 int debugDLL = 0;
 //if(debugDLL) printf("_DLL - \n");
 

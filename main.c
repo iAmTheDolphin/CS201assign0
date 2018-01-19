@@ -7,6 +7,7 @@
 #include "sll.h"
 #include "dll.h"
 #include "integer.h"
+#include "stack.h"
 
 static void showItems(SLL *items)
 {
@@ -19,12 +20,19 @@ int main()
 {
 
 
+
+
+    STACK *stack = newSTACK(displayINTEGER, freeINTEGER);
+
+
+
+
     SLL *items = newSLL(displayINTEGER, freeINTEGER);
 
     insertSLL(items,0,newINTEGER(2));
     insertSLL(items,0,newINTEGER(3));
     showItems(items);
-    removeSLL(items, 1);
+    free(removeSLL(items, 1));
     showItems(items);
     free(removeSLL(items, 0));
     showItems(items);
@@ -45,7 +53,8 @@ int main()
     free(removeSLL(items, 0));
     displaySLLdebug(items, stdout);
 
-
+    freeSLL(items);
+    freeSLL(items2);
 
     return 0;
 
