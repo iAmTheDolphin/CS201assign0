@@ -1,5 +1,5 @@
 //
-// Created by Parker Jones on 1/15/18.
+// Given on the Beastie.cs.ua.edu website
 //
 #ifndef __DLL_INCLUDED__
 #define __DLL_INCLUDED__

@@ -1,5 +1,5 @@
 //
-// Created by Parker Jones on 1/14/18.
+// Given on the Beastie.cs.ua.edu website
 //
 #ifndef __SLL_INCLUDED__
 #define __SLL_INCLUDED__

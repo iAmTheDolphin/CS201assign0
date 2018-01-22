@@ -1,5 +1,5 @@
 //
-// Created by Parker Jones on 1/17/18.
+// Given on the Beastie.cs.ua.edu website
 //
 #ifndef __STACK_INCLUDED__
 #define __STACK_INCLUDED__

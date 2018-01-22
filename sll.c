@@ -38,21 +38,6 @@ static void setNODEvalue(NODE *n, void *v) { n->value = v; }
 
 static void setNODEnext(NODE *n, NODE *p) { n->next = p; }
 
-/* visualizers */
-/*
-static void displayNODE(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
-    fprintf(fp, "[[");
-    d(fp, n->value);
-    fprintf(fp, "]]");
-}
-
-
-static void displayNODEdebug(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
-    fprintf(fp, "[[");
-    d(fp, n->value);
-    fprintf(fp, "@%p->%p]]", n, n->next);
-}
-*/
 static void
 freeNODE(NODE *n, void (*release)(void *)) {
     if (release != 0) release(n->value);
@@ -74,7 +59,6 @@ struct sll {
     void (*display) (void *s, FILE *fp);
     void (*free)(void *);
 };
-
 
 SLL *newSLL(void (*d)(void *, FILE *), void (*f)(void *)) {
     if(debugSLL) printf("_SLL - creating new SLL\n");

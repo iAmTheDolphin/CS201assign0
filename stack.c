@@ -45,8 +45,8 @@ int sizeSTACK(STACK *stack) {
 void displaySTACK(STACK *stack,FILE *fp) {
     int size = sizeDLL(stack->items);
     printf("|");
-    for(int x = 0; x < size; x++) {
-        if(x > 0) printf(",");
+    for(int x = size -1; x >= 0; x--) {
+        if(x < size -1) printf(",");
         stack->display(getDLL(stack->items, x), fp);
     }
     printf("|");
