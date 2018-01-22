@@ -23,9 +23,7 @@ int main()
 
 
     STACK *stack = newSTACK(displayINTEGER, freeINTEGER);
-
-
-
+    freeSTACK(stack);
 
     SLL *items = newSLL(displayINTEGER, freeINTEGER);
 

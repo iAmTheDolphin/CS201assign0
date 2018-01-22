@@ -81,9 +81,7 @@ struct dll {
     NODE *head;
     NODE *tail;
     int size;
-
     void (*display)(void *, FILE *);
-
     void (*free)(void *);
 };
 

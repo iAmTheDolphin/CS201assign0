@@ -14,8 +14,8 @@ extern void push(STACK *items,void *value);
 extern void *pop(STACK *items);
 extern void *peekSTACK(STACK *items);
 extern int sizeSTACK(STACK *items);
-extern void displaySTACK(DLL *items,FILE *);
-extern void displaySTACKdebug(DLL *items,FILE *);
+extern void displaySTACK(STACK *stack,FILE *);
+extern void displaySTACKdebug(STACK *stack,FILE *);
 extern void freeSTACK(STACK *items);
 
 #endif

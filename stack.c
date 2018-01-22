@@ -15,7 +15,7 @@ STACK *newSTACK(void (*display)(void *,FILE *),void (*free)(void *)) {
     STACK *stack = malloc(sizeof(STACK));
     DLL *items = newDLL(display, free);
 
-    assert(stack != 0);
+    assert(stack != 0 && items != 0);
     stack->display = display;
     stack->free = free;
     stack->items = items;
@@ -42,11 +42,21 @@ int sizeSTACK(STACK *stack) {
     return sizeDLL(stack->items);
 }
 
-void displaySTACK(DLL *items,FILE *fp) {
-    int size = sizeDLL(items);
+void displaySTACK(STACK *stack,FILE *fp) {
+    int size = sizeDLL(stack->items);
     printf("|");
     for(int x = 0; x < size; x++) {
         if(x > 0) printf(",");
+        stack->display(getDLL(stack->items, x), fp);
     }
     printf("|");
+}
+
+void displaySTACKdebug(STACK *stack,FILE *fp) {
+    displayDLLdebug(stack->items, fp);
+}
+
+void freeSTACK(STACK *stack) {
+    freeDLL(stack->items);
+    free(stack);
 }
