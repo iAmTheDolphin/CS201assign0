@@ -19,7 +19,7 @@ STACK *newSTACK(void (*display)(void *,FILE *),void (*free)(void *)) {
     stack->display = display;
     stack->free = free;
     stack->items = items;
-    return 0;
+    return stack;
 }
 
 void push(STACK *stack,void *value) {
