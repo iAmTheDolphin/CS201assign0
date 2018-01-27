@@ -17,7 +17,8 @@ STACK *newSTACK(void (*display)(void *,FILE *),void (*free)(void *)) {
     STACK *stack = malloc(sizeof(STACK));
     DLL *items = newDLL(display, free);
 
-    assert(stack != 0 && items != 0);
+    assert(items != 0);
+    assert(stack != 0);
     stack->display = display;
     stack->free = free;
     stack->items = items;
@@ -25,7 +26,10 @@ STACK *newSTACK(void (*display)(void *,FILE *),void (*free)(void *)) {
 }
 
 void push(STACK *stack,void *value) {
+    if(debugSTACK) printf("_STACK - - pushing into stack...\n");
     insertDLL(stack->items, 0, value);
+    if(debugSTACK) printf("_STACK - - done pushing. Size is now :%d\n", sizeSTACK(stack));
+
 }
 
 void *pop(STACK *stack) {

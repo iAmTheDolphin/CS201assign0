@@ -86,7 +86,8 @@ void insertSLL(SLL *items, int index, void *value) {
 
     if(debugSLL) printf("_SLL - inserting into SLL\n");
 
-    assert (index >= 0 && index <= items->size);
+    assert (index <= items->size);
+    assert (index >= 0);
 
     if (items->size == 0) {
         NODE *n = newNODE(value, 0);
@@ -118,7 +119,9 @@ void *removeSLL(SLL *items, int index) {
 
     NODE *n;
 
-    assert(items->size > 0 && index >= 0 && index < items->size);
+    assert(index < items->size);
+    assert(index >= 0);
+    assert(items->size > 0);
 
     void *value = 0;
 
@@ -165,7 +168,8 @@ void unionSLL(SLL *recipient, SLL *donor) {
 }
 
 void *getSLL (SLL *items, int index) {
-    assert(index >= 0 && index < items->size);
+    assert(index < items->size);
+    assert(index >= 0);
     if(index == 0) {
         if(debugSLL) printf("_SLL - getting index 0\n");
         return getNODEvalue(items->head);
@@ -180,7 +184,8 @@ void *getSLL (SLL *items, int index) {
 }
 
 void *setSLL (SLL *items, int index, void *value) {
-    assert(index >= 0 && index <= items->size);
+    assert(index <= items->size);
+    assert(index >= 0);
     void *data = 0;
     if(index == items->size) {
         insertSLL(items, index, value);

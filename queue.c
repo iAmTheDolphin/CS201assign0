@@ -14,7 +14,8 @@ QUEUE *newQUEUE(void (*display)(void *,FILE *),void (*free)(void *)) {
 
     QUEUE *queue = malloc(sizeof(QUEUE));
     SLL *items = newSLL(display, free);
-    assert(queue != 0 && items != 0);
+    assert(items != 0);
+    assert(queue != 0);
     queue->free = free;
     queue->display = display;
     queue->items = items;

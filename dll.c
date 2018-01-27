@@ -102,7 +102,8 @@ static NODE *getNodeBefore(DLL *items, int index) {
 
 void insertDLL(DLL *items, int index, void *value) {
     if (debugDLL) printf("_DLL - inserting into DLL at index %d\n", index);
-    assert(index >= 0 && index <= items->size);
+    assert(index <= items->size);
+    assert(index >= 0);
     NODE *n;
     if (items->size == 0) {
         n = newNODEdll(value, 0, 0);
@@ -128,7 +129,9 @@ void insertDLL(DLL *items, int index, void *value) {
 }
 
 void *removeDLL(DLL *items, int index) {
-    assert(items->size > 0 && index >= 0 && index < items->size);
+    assert(index < items->size);
+    assert(index >= 0);
+    assert(items->size > 0);
 
     NODE *n = getNodeBefore(items, index + 1);
     NODE *last = getNODElast(n);
@@ -175,7 +178,8 @@ void unionDLL(DLL *recipient, DLL *donor) {
 
 void *getDLL(DLL *items, int index) {
     if (debugDLL) printf("_DLL - getting value from index %i\n", index);
-    assert(index >= 0 && index < items->size);
+    assert(index >= 0);
+    assert(index < items->size);
     if (index == 0) {
         return getNODEvalue(items->head);
     } else if (index == items->size - 1) {
@@ -187,7 +191,8 @@ void *getDLL(DLL *items, int index) {
 
 void *setDLL(DLL *items, int index, void *value) {
     if (debugDLL) printf("_DLL - setting value in index %i\n", index);
-    assert(index >= 0 && index <= items->size);
+    assert(index >= 0);
+    assert(index <= items->size);
     void *data = 0;
     if (index == items->size) {
         insertDLL(items, index, value);
