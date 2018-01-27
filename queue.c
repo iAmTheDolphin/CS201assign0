@@ -23,11 +23,11 @@ QUEUE *newQUEUE(void (*display)(void *,FILE *),void (*free)(void *)) {
 }
 
 void enqueue(QUEUE *queue,void *value) {
-    insertSLL(queue->items, 0, value);
+    insertSLL(queue->items, sizeSLL(queue->items), value);
 }
 
 void *dequeue(QUEUE *queue) {
-    void *value = removeSLL(queue->items, sizeSLL(queue->items));
+    void *value = removeSLL(queue->items, 0);
     assert(value != 0);
     return value;
 }
@@ -45,8 +45,8 @@ int sizeQUEUE(QUEUE *queue) {
 void displayQUEUE(QUEUE *queue,FILE *fp) {
     int size = sizeSLL(queue->items);
     printf("<");
-    for(int x = size -1; x >= 0; x--) {
-        if(x < size -1) printf(",");
+    for(int x = 0; x < size; x++) {
+        if(x > 0) printf(",");
         queue->display(getSLL(queue->items, x), fp);
     }
     printf(">");

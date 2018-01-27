@@ -2,6 +2,8 @@
 // Created by Parker Jones on 1/17/18.
 //
 
+int debugSTACK = 1;
+
 #include "stack.h"
 
 struct stack {
@@ -27,8 +29,10 @@ void push(STACK *stack,void *value) {
 }
 
 void *pop(STACK *stack) {
+    if(debugSTACK) printf("_STACK - - size of stack pre pop :%d\n", sizeSTACK(stack));
     void *value = removeDLL(stack->items, 0);
     assert(value != 0);
+    if(debugSTACK) printf("_STACK - - size of stack post pop :%d\n", sizeSTACK(stack));
     return value;
 }
 
@@ -45,8 +49,8 @@ int sizeSTACK(STACK *stack) {
 void displaySTACK(STACK *stack,FILE *fp) {
     int size = sizeDLL(stack->items);
     printf("|");
-    for(int x = size -1; x >= 0; x--) {
-        if(x < size -1) printf(",");
+    for(int x = 0; x < size; x--) {
+        if(x > 0) printf(",");
         stack->display(getDLL(stack->items, x), fp);
     }
     printf("|");

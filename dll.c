@@ -55,11 +55,11 @@ static void displayNODEdebug(NODE *n, FILE *fp, void (*d)(FILE *, void *)) {
 */
 static void
 freeNODE(NODE *n, void (*release)(void *)) {
-    if (release != 0) release(n->value);
+    if (release != 0 && n->value != 0) release(n->value);
     free(n);
 }
-//--------------------------------------------------------
 //endregion
+
 
 
 
@@ -70,11 +70,7 @@ freeNODE(NODE *n, void (*release)(void *)) {
 
 
 
-/* DLL CLASS
- * written by Parker Jones
- */
-
-int debugDLL = 0;
+int debugDLL = 1;
 //if(debugDLL) printf("_DLL - \n");
 
 struct dll {
@@ -105,7 +101,7 @@ static NODE *getNodeBefore(DLL *items, int index) {
 }
 
 void insertDLL(DLL *items, int index, void *value) {
-    if (debugDLL) printf("_DLL - inserting into DLL\n");
+    if (debugDLL) printf("_DLL - inserting into DLL at index %d\n", index);
     assert(index >= 0 && index <= items->size);
     NODE *n;
     if (items->size == 0) {
@@ -128,6 +124,7 @@ void insertDLL(DLL *items, int index, void *value) {
         if (debugDLL) printf("_DLL - - element added to middle/end of list\n");
     }
     items->size++;
+    if (debugDLL) printf("_DLL - - size of list after insertion : %d\n", items->size);
 }
 
 void *removeDLL(DLL *items, int index) {
@@ -138,28 +135,22 @@ void *removeDLL(DLL *items, int index) {
     NODE *next = getNODEnext(n);
     void *value = getNODEvalue(n);
 
-    if (items->size == 1) {
-        free(n);
-        items->size--;
-        if (debugDLL) printf("_DLL - removed item at index 0: remaining items: 0\n");
-    } else if (index == 0) {
+    if (items->size == 1) { //removing the only node
+        items->head = 0;
+        items->tail = 0;
+    } else if (index == 0) { //removing from index 0
         setNODElast(next, 0);
         items->head = next;
-        free(n);
-        items->size--;
-        if (debugDLL) printf("_DLL - removed item at index 0: remaining items: %i\n", items->size);
-    } else if (index == items->size - 1) {
+    } else if (index == items->size - 1) { //removing from the last index
         setNODEnext(last, 0);
         items->tail = last;
-        free(n);
-        items->size--;
-        if (debugDLL) printf("_DLL - removed item at index %i: remaining items: %i\n", index, items->size);
-    } else {
+    } else {                //removing from somewhere in the middle
         setNODEnext(last, next);
         setNODElast(next, last);
-        free(n);
-        if (debugDLL) printf("_DLL - removed item at index %i: remaining items: %i\n", index, items->size);
     }
+    free(n);
+    items->size--;
+    if (debugDLL) printf("_DLL - removed item at index %d: remaining items: %d\n", index, items->size);
 
     return value;
 }
@@ -241,6 +232,7 @@ void freeDLL(DLL *items) {
     NODE *next = 0;
     if (items->size > 1) next = getNODEnext(n);
     while (n != 0) {
+        if (debugDLL) printf("_DLL - - Freeing an element");
         freeNODE(n, items->free);
         n = next;
         if (n != 0)next = getNODEnext(n);

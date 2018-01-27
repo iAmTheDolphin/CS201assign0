@@ -130,7 +130,10 @@ void *removeSLL(SLL *items, int index) {
         free(n);
         items->head = next;
         items->size--;
-        if(items->size == 0)items->tail = 0;
+        if(items->size == 0){
+            items->tail = 0;
+            items->head = 0;
+        }
     }
     else{
         if(debugSLL) printf("_SLL - - removing node in middle/end\n");

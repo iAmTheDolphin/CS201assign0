@@ -1,4 +1,4 @@
-OBJS = integer.o main.o sll.o dll.o stack.o
+OBJS = integer.o main.o sll.o dll.o stack.o queue.o
 OOPTS = -Wall -Wextra -g -c
 LOPTS = -Wall -Wextra -g
 
@@ -12,6 +12,9 @@ integer.o : integer.c integer.h
 
 stack.o : stack.c stack.h dll.o
 		gcc $(OOPTS) stack.c
+
+queue.o : queue.c queue.h sll.o
+		gcc $(OOPTS) queue.c
 
 sll.o : sll.c sll.h
 		gcc $(OOPTS) sll.c
