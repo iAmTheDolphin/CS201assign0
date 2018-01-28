@@ -10,12 +10,27 @@
 #include "stack.h"
 #include "queue.h"
 
-static void showItems(QUEUE *items)
+static void showItemsSTACK(STACK *items)
 {
-   // printf("The items are ");
+    displaySTACK(items, stdout);
+    printf("\n");
+}
+
+static void showItemsQUEUE(QUEUE *items) {
     displayQUEUE(items, stdout);
     printf("\n");
 }
+
+static void showItemsDLL(DLL *items) {
+    displayDLL(items, stdout);
+    printf("\n");
+}
+
+static void showItemsSLL (SLL *items) {
+    displaySLL(items, stdout);
+    printf("\n");
+}
+
 
 int main()
 {
@@ -33,40 +48,25 @@ int main()
     freeQUEUE(queue);
 */
 
-    STACK *stack = newSTACK(displayINTEGER, freeINTEGER);
-    push(stack, newINTEGER(1));
-    freeINTEGER(pop(stack));
-    freeSTACK(stack);
-/*
-    SLL *items = newSLL(displayINTEGER, freeINTEGER);
+    QUEUE *queue = newQUEUE(displayINTEGER, freeINTEGER);
 
-    insertSLL(items,0,newINTEGER(2));
-    insertSLL(items,0,newINTEGER(3));
-    showItems(items);
-    free(removeSLL(items, 1));
-    showItems(items);
-    free(removeSLL(items, 0));
-    showItems(items);
-    insertSLL(items,0,newINTEGER(6));
-    insertSLL(items,0,newINTEGER(7));
-    showItems(items);
-    SLL *items2 = newSLL(displayINTEGER, freeINTEGER);
-    insertSLL(items2,0,newINTEGER(4));
-    insertSLL(items2,0,newINTEGER(5));
-    showItems(items2);
-    unionSLL(items, items2);
-    displaySLL(items, stdout);
-    displaySLL(items2, stdout);
-    displaySLLdebug(items, stdout);
-    free(removeSLL(items, 0));
-    free(removeSLL(items, 0));
-    free(removeSLL(items, 0));
-    free(removeSLL(items, 0));
-    displaySLLdebug(items, stdout);
+    for(int x = 0; x < 10; x ++ ) {
+        enqueue(queue, newINTEGER(x));
+    }
 
-    freeSLL(items);
-    freeSLL(items2);
-*/
+    printf("done queueing\n");
+
+    for(int x = 0; x < 9; x ++ ) {
+        free(dequeue(queue));
+    }
+    showItemsQUEUE(queue);
+
+    free(dequeue(queue));
+
+    freeQUEUE(queue);
+
+
+
     return 0;
 
 

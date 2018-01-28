@@ -2,7 +2,7 @@
 // Created by Parker Jones on 1/17/18.
 //
 
-int debugSTACK = 1;
+int debugSTACK = 0;
 
 #include "stack.h"
 
@@ -53,7 +53,7 @@ int sizeSTACK(STACK *stack) {
 void displaySTACK(STACK *stack,FILE *fp) {
     int size = sizeDLL(stack->items);
     printf("|");
-    for(int x = 0; x < size; x--) {
+    for(int x = 0; x < size; x++) {
         if(x > 0) printf(",");
         stack->display(getDLL(stack->items, x), fp);
     }

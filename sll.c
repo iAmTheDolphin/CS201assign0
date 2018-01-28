@@ -84,69 +84,64 @@ static NODE *getNodeBefore(SLL *items, int index) {
 
 void insertSLL(SLL *items, int index, void *value) {
 
-    if(debugSLL) printf("_SLL - inserting into SLL\n");
+    if(debugSLL) printf("_SLL - inserting into SLL.  size before : %d\n", items->size);
 
     assert (index <= items->size);
     assert (index >= 0);
 
+    NODE *n = newNODE(value, 0);
+
     if (items->size == 0) {
-        NODE *n = newNODE(value, 0);
         items->head = n;
         items->tail = n;
-        items->size++;
-        if(debugSLL) printf("_SLL - - first element added\n");
     }
     else if(index == 0) {
-        if(debugSLL) printf("_SLL - - element added to front\n");
-        NODE *n = newNODE(value, items->head);
+        setNODEnext(n, items->head);
         items->head = n;
-        items->size++;
+    }
+    else if(index == items->size) {
+        setNODEnext(items->tail, n);
+        items->tail = n;
     }
     else {
-        if(debugSLL) printf("_SLL - - element added to middle/end\n");
         NODE *b4 = getNodeBefore(items, index);
         NODE *next = getNODEnext(b4);
-        NODE *n = newNODE(value, next);
+        setNODEnext(n, next);
         if(next == 0) items->tail = n;
         setNODEnext(b4, n);
-        items->size++;
     }
+    items->size++;
+    if(debugSLL) printf("_SLL - - element added at %d,   size after insert : %d\n", index, items->size);
+
+    if(debugSLL && items->size % 10000 == 0) printf("_SLL - size is : %d\n", items->size);
 }
 
 void *removeSLL(SLL *items, int index) {
-
-    if(debugSLL) printf("_SLL - removing from SLL\n");
-
-    NODE *n;
+    if(debugSLL) printf("_SLL - - removing from SLL index : %d.  size before : %d\n",index, items->size);
+    NODE *n = items->head;
 
     assert(index < items->size);
     assert(index >= 0);
     assert(items->size > 0);
-
     void *value = 0;
-
-    if(index == 0) {
-        if(debugSLL) printf("_SLL - - removing first node\n");
-        n = items->head;
+    if (items->size == 1) {
+        value = getNODEvalue(items->head);
+        items->tail = 0;
+        items->head = 0;
+    }
+    else if(index == 0) {
         value = getNODEvalue(n);
-        NODE *next = getNODEnext(n);
-        free(n);
-        items->head = next;
-        items->size--;
-        if(items->size == 0){
-            items->tail = 0;
-            items->head = 0;
-        }
+        items->head = getNODEnext(n);
     }
     else{
-        if(debugSLL) printf("_SLL - - removing node in middle/end\n");
         NODE *b4 = getNodeBefore(items, index);
         n = getNODEnext(b4);
         value = getNODEvalue(n);
         setNODEnext(b4, getNODEnext(n));
-        free(n);
-        items->size--;
     }
+    free(n);
+    items->size--;
+    if(debugSLL) printf("_SLL - - element removed. size after removal : %d\n", items->size);
     return value;
 }
 

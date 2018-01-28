@@ -69,8 +69,7 @@ freeNODE(NODE *n, void (*release)(void *)) {
 //
 
 
-
-int debugDLL = 1;
+int debugDLL = 0;
 //if(debugDLL) printf("_DLL - \n");
 
 struct dll {
