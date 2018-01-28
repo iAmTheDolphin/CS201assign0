@@ -83,14 +83,11 @@ static NODE *getNodeBefore(SLL *items, int index) {
 }
 
 void insertSLL(SLL *items, int index, void *value) {
-
     if(debugSLL) printf("_SLL - inserting into SLL.  size before : %d\n", items->size);
-
     assert (index <= items->size);
     assert (index >= 0);
 
     NODE *n = newNODE(value, 0);
-
     if (items->size == 0) {
         items->head = n;
         items->tail = n;
@@ -111,9 +108,8 @@ void insertSLL(SLL *items, int index, void *value) {
         setNODEnext(b4, n);
     }
     items->size++;
-    if(debugSLL) printf("_SLL - - element added at %d,   size after insert : %d\n", index, items->size);
 
-    if(debugSLL && items->size % 10000 == 0) printf("_SLL - size is : %d\n", items->size);
+    if(debugSLL) printf("_SLL - - element added at %d,   size after insert : %d\n", index, items->size);
 }
 
 void *removeSLL(SLL *items, int index) {
@@ -138,6 +134,7 @@ void *removeSLL(SLL *items, int index) {
         n = getNODEnext(b4);
         value = getNODEvalue(n);
         setNODEnext(b4, getNODEnext(n));
+        if(index == items->size -1 ) items->tail = b4;
     }
     free(n);
     items->size--;
@@ -146,10 +143,9 @@ void *removeSLL(SLL *items, int index) {
 }
 
 void unionSLL(SLL *recipient, SLL *donor) {
-    if(debugSLL) printf("_SLL - starting a union\n");
+    if(debugSLL) printf("_SLL - starting a union size r : %d, d : %d\n",recipient->size, donor->size);
 
     if(recipient->size == 0) {
-        if(debugSLL) printf("_SLL - - recipient size is 0 linking head to head\n");
         recipient->head = donor->head;
         recipient->tail = donor->tail;
     }
@@ -166,7 +162,6 @@ void *getSLL (SLL *items, int index) {
     assert(index < items->size);
     assert(index >= 0);
     if(index == 0) {
-        if(debugSLL) printf("_SLL - getting index 0\n");
         return getNODEvalue(items->head);
     }
     else if(index == items->size-1) {

@@ -50,22 +50,57 @@ int main()
 
     QUEUE *queue = newQUEUE(displayINTEGER, freeINTEGER);
 
-    for(int x = 0; x < 10; x ++ ) {
+    for(int x = 0; x < 1000000; x ++ ) {
         enqueue(queue, newINTEGER(x));
     }
 
+
     printf("done queueing\n");
 
-    for(int x = 0; x < 9; x ++ ) {
+    for(int x = 0; x < 999999; x ++ ) {
         free(dequeue(queue));
     }
     showItemsQUEUE(queue);
-
     free(dequeue(queue));
-
     freeQUEUE(queue);
 
+    STACK *stack1 = newSTACK(displayINTEGER, freeINTEGER);
+    for(int x = 0; x < 1000000; x ++ ) {
+        push(stack1, newINTEGER(x));
+    }
+    for(int x = 0; x < 999996; x ++ ) {
+        free(pop(stack1));
+    }
+    displaySTACKdebug(stack1, stdout);
+    showItemsSTACK(stack1);
+    freeSTACK(stack1);
 
+
+    DLL *list = newDLL(displayINTEGER, freeINTEGER);
+    DLL *list2 = newDLL(displayINTEGER, freeINTEGER);
+
+    for(int x = 0; x < 999; x ++ ) {
+        insertDLL(list, x/2, newINTEGER(x));
+    }
+    unionDLL(list, list2);
+    showItemsDLL(list2);
+    showItemsDLL(list);
+    free(list);
+    free(list2);
+
+
+    SLL *listSll =newSLL(displayINTEGER, freeINTEGER);
+    for (int x = 0; x < 10; x ++) {
+        insertSLL(listSll, x, newINTEGER(x));
+    }
+    displaySLLdebug(listSll, stdout);
+    printf("\n");
+    for (int x = 9; x > 0; x --) {
+        free(removeSLL(listSll, x));
+        displaySLLdebug(listSll, stdout);
+        printf("\n");
+    }
+    freeSLL(listSll);
 
     return 0;
 
