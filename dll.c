@@ -121,10 +121,12 @@ void insertDLL(DLL *items, int index, void *value) {
         if (next == 0) items->tail = n;
         else setNODElast(next, n);
         setNODEnext(b4, n);
-        if (debugDLL) printf("_DLL - - element added to middle/end of list\n");
+        if (debugDLL) printf("_DLL - - element added to "
+                                     "middle/end of list\n");
     }
     items->size++;
-    if (debugDLL) printf("_DLL - - size of list after insertion : %d\n", items->size);
+    if (debugDLL) printf("_DLL - - size of list after "
+                                 "insertion : %d\n", items->size);
 }
 
 void *removeDLL(DLL *items, int index) {
@@ -152,25 +154,24 @@ void *removeDLL(DLL *items, int index) {
     }
     free(n);
     items->size--;
-    if (debugDLL) printf("_DLL - removed item at index %d: remaining items: %d\n", index, items->size);
+    if (debugDLL) printf("_DLL - removed item at index %d: remaining "
+                                 "items: %d\n", index, items->size);
 
     return value;
 }
 
 void unionDLL(DLL *recipient, DLL *donor) {
-
-    if (debugDLL) printf("_DLL - union of recipient size:%i and donor size:%i \n", recipient->size, donor->size);
-
+    if (debugDLL) printf("_DLL - union of recipient size:%i and donor "
+                                 "size:%i \n", recipient->size, donor->size);
     if (recipient->size == 0) {
         recipient->head = donor->head;
         recipient->tail = donor->tail;
-        recipient->size += donor->size;
-    } else {
+    } else if (donor->size > 0){
         setNODEnext(recipient->tail, donor->head);
         if (donor->head != 0) setNODElast(donor->head, recipient->tail);
         recipient->tail = donor->tail;
-        recipient->size += donor->size;
     }
+    recipient->size += donor->size;
     donor->head = donor->tail = 0;
     donor->size = 0;
 }

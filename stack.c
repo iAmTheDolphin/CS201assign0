@@ -28,15 +28,18 @@ STACK *newSTACK(void (*display)(void *,FILE *),void (*free)(void *)) {
 void push(STACK *stack,void *value) {
     if(debugSTACK) printf("_STACK - - pushing into stack...\n");
     insertDLL(stack->items, 0, value);
-    if(debugSTACK) printf("_STACK - - done pushing. Size is now :%d\n", sizeSTACK(stack));
+    if(debugSTACK) printf("_STACK - - done pushing. Size is now "
+                                  ":%d\n", sizeSTACK(stack));
 
 }
 
 void *pop(STACK *stack) {
-    if(debugSTACK) printf("_STACK - - size of stack pre pop :%d\n", sizeSTACK(stack));
+    if(debugSTACK) printf("_STACK - - size of stack pre pop "
+                                  ":%d\n", sizeSTACK(stack));
     void *value = removeDLL(stack->items, 0);
     assert(value != 0);
-    if(debugSTACK) printf("_STACK - - size of stack post pop :%d\n", sizeSTACK(stack));
+    if(debugSTACK) printf("_STACK - - size of stack post pop "
+                                  ":%d\n", sizeSTACK(stack));
     return value;
 }
 

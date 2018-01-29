@@ -83,7 +83,8 @@ static NODE *getNodeBefore(SLL *items, int index) {
 }
 
 void insertSLL(SLL *items, int index, void *value) {
-    if(debugSLL) printf("_SLL - inserting into SLL.  size before : %d\n", items->size);
+    if(debugSLL) printf("_SLL - inserting into SLL.  "
+                                "size before : %d\n", items->size);
     assert (index <= items->size);
     assert (index >= 0);
 
@@ -109,11 +110,14 @@ void insertSLL(SLL *items, int index, void *value) {
     }
     items->size++;
 
-    if(debugSLL) printf("_SLL - - element added at %d,   size after insert : %d\n", index, items->size);
+    if(debugSLL) printf("_SLL - - element added at %d,   "
+                                "size after insert : "
+                                "%d\n", index, items->size);
 }
 
 void *removeSLL(SLL *items, int index) {
-    if(debugSLL) printf("_SLL - - removing from SLL index : %d.  size before : %d\n",index, items->size);
+    if(debugSLL) printf("_SLL - - removing from SLL index : %d.  "
+                                "size before : %d\n",index, items->size);
     NODE *n = items->head;
 
     assert(index < items->size);
@@ -138,18 +142,20 @@ void *removeSLL(SLL *items, int index) {
     }
     free(n);
     items->size--;
-    if(debugSLL) printf("_SLL - - element removed. size after removal : %d\n", items->size);
+    if(debugSLL) printf("_SLL - - element removed. size after "
+                                "removal : %d\n", items->size);
     return value;
 }
 
 void unionSLL(SLL *recipient, SLL *donor) {
-    if(debugSLL) printf("_SLL - starting a union size r : %d, d : %d\n",recipient->size, donor->size);
+    if(debugSLL) printf("_SLL - starting a union size r : %d, "
+                                "d : %d\n",recipient->size, donor->size);
 
     if(recipient->size == 0) {
         recipient->head = donor->head;
         recipient->tail = donor->tail;
     }
-    else {
+    else if (donor->size > 0){
         setNODEnext(recipient->tail, donor->head);
         recipient->tail = donor->tail;
     }

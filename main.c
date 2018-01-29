@@ -76,18 +76,33 @@ int main()
     freeSTACK(stack1);
 
 
+    printf("\n");
+    printf("\n");
+
     DLL *list = newDLL(displayINTEGER, freeINTEGER);
     DLL *list2 = newDLL(displayINTEGER, freeINTEGER);
 
-    for(int x = 0; x < 999; x ++ ) {
+    for(int x = 0; x < 9; x ++ ) {
         insertDLL(list, x/2, newINTEGER(x));
     }
     unionDLL(list, list2);
     showItemsDLL(list2);
     showItemsDLL(list);
+    displayDLLdebug(list, stdout);
+    printf("\n");
+    for(int x = 9; x > 0; x -- ) {
+        free(removeDLL(list, 0));
+        displayDLLdebug(list, stdout);
+        printf("\n");
+    }
+    displayDLLdebug(list, stdout);
+    printf("\n");
     free(list);
     free(list2);
 
+
+    printf("\n");
+    printf("\n");
 
     SLL *listSll =newSLL(displayINTEGER, freeINTEGER);
     for (int x = 0; x < 10; x ++) {
@@ -100,6 +115,8 @@ int main()
         displaySLLdebug(listSll, stdout);
         printf("\n");
     }
+    free(removeSLL(listSll, 0));
+    displaySLLdebug(listSll, stdout);
     freeSLL(listSll);
 
     return 0;
