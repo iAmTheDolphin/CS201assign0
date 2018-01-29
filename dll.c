@@ -194,7 +194,7 @@ void *setDLL(DLL *items, int index, void *value) {
     assert(index >= 0);
     assert(index <= items->size);
     void *data = 0;
-    if (index == items->size) {
+    if (index == items->size) { //inserts it at the end
         insertDLL(items, index, value);
     } else if (index == 0) {
         data = getNODEvalue(items->head);
