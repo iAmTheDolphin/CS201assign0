@@ -2,6 +2,7 @@
 // Created by Parker Jones on 1/14/18.
 //
 
+#include <assert.h>
 #include "sll.h"
 
 //given by Dr. Lusth on the beastie website
@@ -189,6 +190,10 @@ void *setSLL (SLL *items, int index, void *value) {
     else if (index == 0){
         data = getNODEvalue(items->head);
         setNODEvalue(items->head, value);
+    }
+    else if(index == items->size-1) {
+        data = getNODEvalue(items->tail);
+        setNODEvalue(items->tail, value);
     }
     else {
         NODE *n = getNODEnext(getNodeBefore(items, index));
