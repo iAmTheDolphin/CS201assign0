@@ -1,32 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "queue.h"
-#include "sll.h"
+#include "dll.h"
 #include "integer.h"
+#include <time.h>
 
 extern void srandom(unsigned int);
 extern long int random(void);
 
-int
-main(void)
-{
-    srandom(8);
-    QUEUE *p = newQUEUE(displayINTEGER,freeINTEGER);
-    int i;
-    for (i = 0; i < 1000000; ++i)
-    {
-        int j = random() % 100;
-        enqueue(p,newINTEGER(j));
+
+int main () {
+
+    DLL *items = newDLL(displayINTEGER, freeINTEGER);
+
+    for (int x = 0; x < 10000000; x ++ ) {
+        insertDLL(items, x, newINTEGER(1));
     }
-    if (sizeQUEUE(p) < 100)
-    {
-        displayQUEUE(p,stdout);
-        printf("\n");
-        displayQUEUEdebug(p,stdout);
-        printf("\n");
-    }
-    printf("size is %d\n",sizeQUEUE(p));
-    printf("peek value is %d\n",getINTEGER(peekQUEUE(p)));
-    freeQUEUE(p);
-    return 0;
 }
